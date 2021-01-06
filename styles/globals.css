@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -13,4 +17,10 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+@layer components {
+  .button-link {
+    @apply py-2 px-4 mt-4 bg-white rounded-full max-w-max hover:bg-opacity-75;
+  }
 }
