@@ -20,7 +20,17 @@ a {
 }
 
 @layer components {
+  .icon-button {
+    @apply p-2 rounded-full hover:bg-gray-400 focus:outline-none;
+  }
   .button-link {
     @apply py-2 px-4 mt-4 bg-white rounded-full max-w-max hover:bg-opacity-75;
   }
+  .modal-backdrop {
+    @apply fixed w-full h-full bg-black bg-opacity-30;
+  }
+}
+
+.modal-backdrop {
+  backdrop-filter: blur(4px);
 }

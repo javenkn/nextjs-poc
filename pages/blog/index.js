@@ -1,20 +1,16 @@
-import Head from "next/head";
+import React from "react";
 import faker from "faker";
-import Card from "../components/Card";
-import Nav from "../components/Nav";
+import Card from "../../components/Card";
 
-export default function Home() {
+function Blog() {
   return (
     <>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <h1 className="my-4 self-start">Blogs</h1>
       <Card
         title={faker.name.firstName()}
         description={faker.commerce.productDescription()}
       >
-        <button className="button-link px-8">View</button>
+        <button className="button-link">Read more</button>
       </Card>
       <div className="grid lg:grid-cols-2 gap-4 justify-items-center w-full mt-4">
         {Array(2)
@@ -25,12 +21,12 @@ export default function Home() {
               title={faker.name.firstName()}
               description={faker.commerce.productDescription()}
             >
-              <button className="button-link px-8">View</button>
+              <button className="button-link">Read more</button>
             </Card>
           ))}
       </div>
-      <div className="grid lg:grid-cols-3 gap-4 justify-items-center w-full mt-4">
-        {Array(3)
+      <div className="grid lg:grid-cols-3 gap-4 justify-items-center w-full mt-2">
+        {Array(9)
           .fill(null)
           .map((_, i) => (
             <Card
@@ -38,10 +34,12 @@ export default function Home() {
               title={faker.name.firstName()}
               description={faker.commerce.productDescription()}
             >
-              <button className="button-link px-8">View</button>
+              <button className="button-link">Read more</button>
             </Card>
           ))}
       </div>
     </>
   );
 }
+
+export default Blog;
