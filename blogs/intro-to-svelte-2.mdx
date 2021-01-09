@@ -1,0 +1,164 @@
+---
+title: "Intro to Svelte 2"
+category: Svelte
+description: An introduction to Svelte 2
+author: "Javen"
+excerpt: "An introduction to Svelte, adding more fire to the JavaScript component framework war."
+tags: [JavaScript, HTML, CSS, Svelte]
+publishedAt: "2020-02-25"
+---
+
+# What is Svelte?
+
+Svelte has been getting a lot of buzz lately in the JavaScript world. But what is Svelte? Svelte is a component framework that runs at _build time_, in other words a compiler. It converts your `{MyComponent}.svelte` files into tiny standalone JavaScript modules and "surgically" updates the DOM without any layers of abstraction between your application and the browser.
+
+# Svelte vs. `{insert popular JavaScript framework here}`
+
+## No Virtual DOM
+
+Take React and Vue for examples. In both of these component frameworks, most of the work is done in the browser, the virtual DOM, but in Svelte the compiling step is done when you build your application. Svelte's main purpose as a compiler is to compile the components down at the build time, which allows you to include a `bundle.js` file onto your page to render your application. So that means no virtual DOM and also no framework to load at runtime!
+
+#### What is the virtual DOM? 🤷‍♂️
+
+A lot of frameworks help you build an application by using a `render()` function.
+For example this is how a simple Hello component in React would be implemented:
+
+```js
+function Hello(props) {
+  return <div>Hello {props.name}</div>;
+}
+```
+
+This can also be reinterpreted like so:
+
+```js
+function Hello(props) {
+  return React.createElement("div", "Hello", props.name);
+}
+```
+
+These blocks of code result in an object representing the page or part of the application. This object is also known as the virtual DOM. Everytime the application's state updates (when the `name` prop changes), a new object gets created and the framework ends up reconciling the newly created object against the old object. It then finds out which changes are necessary and applies them to the real DOM.
+
+## Readability 🧐
+
+It's basically impossible to write code without creating bugs (nobody is perfect...). Which goes to show that the more lines of code you write, the buggier your code will be 🐛🐛🐛🐛. Research shows that [project development time](https://blog.codinghorror.com/diseconomies-of-scale-and-lines-of-code/) and [bug count](https://www.mayerdan.com/ruby/2012/11/11/bugs-per-line-of-code-ratio) grow **_QUADRATICALLY_** and not linearly, with the size of a codebase. It's crazy to think about bugs and maintain readability of your code while also thinking about performance numbers, bundle size, and other measurements while developing.
+Compared to other component frameworks, Svelte does a good job on reducing the amount of code that is written by the developer. For examples, I'll use React and Vue again.
+Svelte code:
+
+```js
+<script>
+  let a = 1;
+  let b = 2;
+</script>
+<input type="number" bind:value={a}>
+<input type="number" bind:value={b}>
+<p>{a} + {b} = {a + b}</p>
+```
+
+React code:
+
+```js
+import React, { useState } from "react";
+export default () => {
+  const [a, setA] = useState(1);
+  const [b, setB] = useState(2);
+  function handleChangeA(event) {
+    setA(+event.target.value);
+  }
+  function handleChangeB(event) {
+    setB(+event.target.value);
+  }
+  return (
+    <div>
+      <input type="number" value={a} onChange={handleChangeA} />
+      <input type="number" value={b} onChange={handleChangeB} />
+      <p>
+        {a} + {b} = {a + b}
+      </p>
+    </div>
+  );
+};
+```
+
+Vue Code:
+
+```js
+<template>
+  <div>
+    <input type="number" v-model.number="a">
+    <input type="number" v-model.number="b">
+    <p>{{a}} + {{b}} = {{a + b}}</p>
+  </div>
+</template>
+<script>
+  export default {
+    data: function() {
+      return {
+        a: 1,
+        b: 2
+      };
+    }
+  };
+</script>
+```
+
+React: 442 characters, Vue: 263 characters, Svelte: 145 characters
+Svelte's API expresses various features with concise implementation.
+
+## Real World Application Comparisons
+
+In [freecodecamp's blog post](https://www.freecodecamp.org/news/a-realworld-comparison-of-front-end-frameworks-with-benchmarks-2019-update-4be0d3c78075/), various Frontend frameworks were tested and compared by using a real world application to see how each framework differed from each other. They compared the frameworks based on a few metrics. Below are the results of those metrics:
+
+- Performance (anything above 90 is considered performant, the higher the better)
+  ![performance](../../../data/images/blog_posts/intro_to_svelte/performance.png)
+- Size (smaller the file, faster the download, and less to parse)
+  ![size](../../../data/images/blog_posts/intro_to_svelte/size.png)
+- Lines of Code (shows how easily expressed and implemented the framework is)
+  ![lines-of-code](../../../data/images/blog_posts/intro_to_svelte/lines-of-code.png)
+
+## No More Boilerplate
+
+Svelte gets around the boilerplate idea of creating user interfaces. There are many other features that Svelte provides that I haven't included in this article. For example, [reactive declarations](https://svelte.dev/tutorial/reactive-declarations), that are Svelte's version of React's `useMemo`, `useCallback`, and `useEffect` without the boilerplate. Because Svelte is a compiler, it doesn't have to deal with the unusual parts of JavaScript and can focus on designing a better component development experience. This ultimately results in easier to understand code while also being significantly performant.
+
+# Get Started 👨‍💻
+
+Svelte, like other component frameworks, is easy to get set up and running. You can either use the [Svelte REPL](https://svelte.dev/repl/hello-world?version=3.19.1) or use the [Svelte template](https://github.com/sveltejs/template) using degit.
+
+1. Svelte REPL
+   To export your work from the REPL you can click the **download** button to save a `svelte-app.zip` file to your computer and uncompress it.
+   Navigate to your terminal
+
+```
+cd /path/to/svelte-app
+npm install
+npm run dev
+```
+
+It will serve your app on [localhost:5000](http://localhost:5000) and rebuild with [Rollup](https://rollupjs.org/guide/en/) every time your files in `svelte-app/src` change. 2. Use degit
+[Degit](https://github.com/Rich-Harris/degit) is a project scaffolding tool.
+Navigate to your terminal and create a new project by:
+
+```
+npx degit sveltejs/template my-svelte-project
+cd my-svelte-project
+npm install
+npm run dev
+```
+
+Like Svelte REPL, it will serve your app on [localhost:5000](http://localhost:5000).
+
+# tl;dr
+
+Svelte does a great job with code efficiency, implementing readability, and is very performant. This is mainly due to the fact that it's a compiler. It compiles your components to tiny framework-less vanilla JavaScript, so that your application starts and stays fast!
+
+# What's next? 🤔
+
+Although Svelte is a new UI component framework, it's gaining a lot of popularity in the JavaScript community. There aren't a lot of resources that display best practices/concepts yet, but I believe the [Svelte tutorial](https://svelte.dev/tutorial/basics) is a great place to start. There are a ton of examples which I think fully encapsulates what Svelte has to offer! Just have fun and play around with it! For example, try and recreate an old application with Svelte 😏. Svelte is just beginning and I'm excited to see what's next!
+Thanks for your time! 🙌 I hope you enjoyed reading and learning a small part of Svelte! 😄
+
+# Resources
+
+https://svelte.dev/blog
+https://svelte.dev/tutorial/basics
+https://www.freecodecamp.org/news/a-realworld-comparison-of-front-end-frameworks-with-benchmarks-2019-update-4be0d3c78075/
+https://www.youtube.com/watch?v=AdNJ3fydeao
