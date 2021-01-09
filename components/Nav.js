@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 const links = [
-  { name: "AaaS", href: "aaas" },
-  { name: "Tools", href: "tools" },
-  { name: "Bo Knows", href: "bo-knows" },
-  { name: "Fyf", href: "find-your-fix" },
-  { name: "Team", href: "team" },
-  { name: "Blog", href: "blog" },
+  { name: "AaaS", href: "/aaas" },
+  { name: "Tools", href: "/tools" },
+  { name: "Bo Knows", href: "/bo-knows" },
+  { name: "Fyf", href: "/find-your-fix" },
+  { name: "Team", href: "/team" },
+  { name: "Blog", href: "/blog" },
 ];
 
 function MobileNavIcon({ className }) {
